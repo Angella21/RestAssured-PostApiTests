@@ -48,49 +48,40 @@ public class PostApiTest {
                 .statusCode(200)
                 .log().body()  //print the JSON response in the console
                 .body("size()", equalTo(100))
-                .body("[0].userId", equalTo(1))
+                .body("[0].userId", equalTo(1));
                 //.log().ifValidationFails(); //  print response only if something goes wrong
     }
 
     // POST create new post
     @Test
     void createPostAndVerify() {
-       // RestAssured.baseURI = BASE_URL;
 
+        // Request body for new post
         String requestBody = """
-            {
-                "title": "My new post",
-                "body": "This is the content of my post",
-                "userId": 1
-            }""";
+                {
+                    "title": "My new post",
+                    "body": "This is the content of my post",
+                    "userId": 1
+                }""";
 
-        // Create post and extract ID
-        Integer postId =
-                given()
-                        .contentType(ContentType.JSON)
-                        .body(requestBody)
-                        .when()
-                        .post("/posts")
-                        .then()
-                        .statusCode(201)
-                        .body("title", equalTo("My new post"))
-                        .body("body", equalTo("This is the content of my post"))
-                        .body("userId", equalTo(1))
-                        .extract()
-                        .path("id");
+        // POST request to create a new post
+        Integer postId = given()
+                .contentType(ContentType.JSON)
+                .body(requestBody)
+                .when()
+                .post("/posts")
+                .then()
+                .statusCode(201)  // POST successful
+                .body("title", equalTo("My new post"))
+                .body("body", equalTo("This is the content of my post"))
+                .body("userId", equalTo(1))
+                .extract()
+                .path("id");  // Extract generated post ID
 
         System.out.println("Created post ID: " + postId);
 
-        // Verify the created post using GET
-        given()
-                .pathParam("id", postId)
-                .when()
-                .get("/posts/{id}")
-                .then()
-                .statusCode(200)
-                .body("title", equalTo("My new post"))
-                .body("body", equalTo("This is the content of my post"))
-                .body("userId", equalTo(1));
+        // NOTE: GET verification is not possible on JSONPlaceholder,
+        // because the API doesn't persist data.
     }
 
 
@@ -128,10 +119,11 @@ public class PostApiTest {
         //RestAssured.baseURI = BASE_URL;
 
         String patchBody = """
-               { 
-                "title" : "Partially updated title"
-               
-                }""";
+{
+    "title": "Partially updated title"
+}
+""";
+
 
 
         given()
