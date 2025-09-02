@@ -42,3 +42,20 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+
+
+      # ----------- Upload Maven test reports ----------- #
+      - name: Archive Maven test reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: maven-test-reports
+          path: target/surefire-reports/
+
+      # ----------- Upload Playwright test reports ----------- #
+      - name: Archive Playwright test reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report/
