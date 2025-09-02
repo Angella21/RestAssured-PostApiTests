@@ -1,0 +1,24 @@
+{
+  "name": "restassured-postapitests",
+  "version": "1.0.0",
+  "description": "This project contains API tests using **Java** and **RestAssured** for testing CRUD operations on a sample API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angella21/RestAssured-PostApiTests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Angella21/RestAssured-PostApiTests/issues"
+  },
+  "homepage": "https://github.com/Angella21/RestAssured-PostApiTests#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}
