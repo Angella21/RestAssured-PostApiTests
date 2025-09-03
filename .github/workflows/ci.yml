@@ -25,8 +25,8 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Run Maven tests
-        run: mvn test
+      - name: Run Maven tests + generate HTML report
+        run: mvn verify
 
       # ----------- Upload Maven test reports ----------- #
       - name: Archive Maven HTML reports
@@ -35,4 +35,5 @@ jobs:
         with:
           name: maven-html-reports
           path: target/site/surefire-report/
+      
 
