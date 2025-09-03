@@ -31,7 +31,8 @@ jobs:
       # ----------- Upload Maven test reports ----------- #
       - name: Archive Maven test reports
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: maven-test-reports
           path: target/surefire-reports/
+      
