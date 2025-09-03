@@ -12,28 +12,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # ----------- Java setup ----------- #
+      # 2️⃣ Set up Java
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Build with Maven
-        run: mvn clean install
+      # 3️⃣ Build & run tests (with HTML report generation)
+      - name: Build & Run Maven tests + generate HTML report
+        run: mvn clean verify
 
-      - name: Run Maven tests + generate HTML report
-        run: mvn verify
+      # 4️⃣ Upload XML reports
+      - name: Upload Maven XML reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maven-xml-reports
+          path: target/surefire-reports/
 
-      # ----------- Upload Maven test reports ----------- #
-      - name: Archive Maven HTML reports
+      # 5️⃣ Upload HTML reports
+      - name: Upload Maven HTML reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: maven-html-reports
           path: target/site/surefire-report/
-      
-
