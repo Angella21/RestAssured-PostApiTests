@@ -21,7 +21,7 @@ jobs:
           java-version: 17
 
       - name: Build & Run Maven tests + generate HTML report
-        run: mvn clean verify
+        run: mvn clean test surefire-report:report-only
 
       - name: Upload Maven XML reports
         if: always()
@@ -30,9 +30,9 @@ jobs:
           name: maven-xml-reports
           path: target/surefire-reports/
 
-      - name: Upload Maven HTML reports
+      - name: Upload Maven HTML report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: maven-html-reports
-          path: target/site/surefire-report/
+          name: maven-html-report
+          path: target/site/surefire-report.html
